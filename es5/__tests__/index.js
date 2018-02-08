@@ -1,4 +1,9 @@
-import Lifespan from '../';
+"use strict";
+
+var _ = _interopRequireDefault(require("../"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var _global = global,
     describe = _global.describe,
     it = _global.it;
@@ -9,7 +14,7 @@ describe('Lifespan', function test() {
     var released = {};
     released.a = false;
     var count = 0;
-    var a = new Lifespan().onRelease(function () {
+    var a = new _.default().onRelease(function () {
       return released.a = true;
     });
     var i = setInterval(function () {
@@ -19,7 +24,7 @@ describe('Lifespan', function test() {
       return clearInterval(i);
     });
     released.b = false;
-    var b = new Lifespan();
+    var b = new _.default();
     b.onRelease(function () {
       return released.b = true;
     });
@@ -28,32 +33,36 @@ describe('Lifespan', function test() {
       return a.release();
     });
     released.c1 = released.c2 = released.c3 = false;
-    var c1 = new Lifespan().onRelease(function () {
+    var c1 = new _.default().onRelease(function () {
       return released.c1 = true;
     });
-    var c2 = new Lifespan().onRelease(function () {
+    var c2 = new _.default().onRelease(function () {
       return released.c2 = true;
     });
-    var c3 = new Lifespan().onRelease(function () {
+    var c3 = new _.default().onRelease(function () {
       return released.c3 = true;
     });
     released.c4 = false;
-    var c4 = Lifespan.race(c1, c2, c3).onRelease(function () {
+
+    var c4 = _.default.race(c1, c2, c3).onRelease(function () {
       return released.c4 = true;
     });
+
     c1.release();
     released.c4.should.be.true;
     void c4;
     released.d1 = released.d2 = released.d3 = false;
-    var d1 = new Lifespan().onRelease(function () {
+    var d1 = new _.default().onRelease(function () {
       return released.d1 = true;
     });
-    var d2 = new Lifespan().onRelease(function () {
+    var d2 = new _.default().onRelease(function () {
       return released.d2 = true;
     });
-    var d3 = Lifespan.join(d1, d2).onRelease(function () {
+
+    var d3 = _.default.join(d1, d2).onRelease(function () {
       return released.d3 = true;
     });
+
     d1.release();
     released.d3.should.be.false;
     d2.release();

@@ -1,13 +1,23 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _bindAll2 = _interopRequireDefault(require("lodash/bindAll"));
+
+var _each2 = _interopRequireDefault(require("lodash/each"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-import _bindAll from 'lodash/bindAll';
-import _each from 'lodash/each';
 /* eslint-disable no-underscore-dangle */
-
 var __DEV__ = process.env.NODE_ENV === 'development';
 
 var Lifespan =
@@ -19,8 +29,7 @@ function () {
 
     this._callbacks = [];
     this._released = false;
-
-    _bindAll(this, ['release', 'onRelease', 'setInterval', 'setTimeout', 'setImmediate', 'requestAnimationFrame', 'Promise']);
+    (0, _bindAll2.default)(this, ['release', 'onRelease', 'setInterval', 'setTimeout', 'setImmediate', 'requestAnimationFrame', 'Promise']);
   }
 
   _createClass(Lifespan, [{
@@ -31,11 +40,9 @@ function () {
       }
 
       this._released = true;
-
-      _each(this._callbacks, function (fn) {
+      (0, _each2.default)(this._callbacks, function (fn) {
         return fn();
       });
-
       this._callbacks = null;
       return this;
     }
@@ -215,5 +222,7 @@ Object.defineProperty(Lifespan, "lifespan", {
   writable: true,
   value: null
 });
-export default Lifespan;
+var _default = Lifespan;
 /* eslint-enable no-undescore-dangle */
+
+exports.default = _default;
